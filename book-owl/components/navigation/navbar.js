@@ -69,7 +69,7 @@ const NavBar = () => {
                         className={`hover:cursor-pointer hover:scale-110 ${ currentPage === '/self'  ? 'scale-110 outline outline-2 outline-offset-2 rounded-md outline-shingle-fawn' : '' }`}
                         onClick={handleButtonClick}
                     />
-                    {isClicked && <DropDown />}
+                    {isClicked && <DropDown {...token}/>}
                 </div>
             </div>
         </nav>

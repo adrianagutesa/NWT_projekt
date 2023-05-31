@@ -11,7 +11,7 @@ import BackArrow from "../public/back-arrow.png";
 import bg from "../public/background.webp";
 
 const Login = () => {
-    const {setAuth } = useAuth();
+    const { setAuth } = useAuth();
     const router = useRouter();
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
@@ -23,7 +23,6 @@ const Login = () => {
         await api
             .login(username, password)
             .then(({ token }) => {
-                setUsername("");
                 setAuth(token);
                 router.push("/self");
             })

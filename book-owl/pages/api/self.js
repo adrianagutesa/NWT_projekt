@@ -1,11 +1,9 @@
 import jwt from 'jsonwebtoken';
-import Database from '../../constants/db';
-
-const db = new Database();
+import * as users from '../../lib/userByID';
 
 const JWT_SECRET = 'secret';
 
-const handler = (req, res) => {
+const handler = async(req, res) => {
     if (req.method !== 'GET') {
         res.status(405).json({ message: 'Method not allowed' });
     }
@@ -16,8 +14,12 @@ const handler = (req, res) => {
         const token = req.headers.authorization.split(' ')[1];
         const decoded = jwt.verify(token, JWT_SECRET);
 
-        const { password, ...user } = db.getUserById(decoded.id);
+        const uri = decoded.id + " " + 1;
+        const resp = await fetch(`http://localhost:3000/api/${uri}`);
+        const currentuser = await resp.json();
 
+        const {password, ...user} = currentuser;
+            
         if (!user) {
             res.status(403).json({ message: 'Your account might be deleted' });
         }

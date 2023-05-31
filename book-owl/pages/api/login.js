@@ -20,8 +20,8 @@ const handler = async (req, res) => {
         res.status(401).json({ message: 'Unauthorized' });
     }
 
-    const token = jwt.sign({ id: user.id }, JWT_SECRET, {
-        expiresIn: '1h',
+    const token = jwt.sign({ id: user[0].id }, JWT_SECRET, {
+        expiresIn: '5h',
     });
 
     res.status(200).json({ token });
