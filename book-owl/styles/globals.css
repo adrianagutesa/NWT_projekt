@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css?family=Della%20Respira&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Pacifico&display=swap');
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+    font-family: Della Respira, sans-serif;
+    font-display: swap;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+#footer {
+    -webkit-text-stroke: 2px #3F2919;
+}
+
+#blog {
+    -webkit-text-stroke: 3px #3F2919;
+}
