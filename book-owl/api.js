@@ -14,6 +14,23 @@ const api = {
 
         return res.json();
     },
+    registration: async (username, email, password) => {
+        const uri = username + " " + email + " "  + password;
+       
+        const res = await fetch(`http://localhost:3000/api/${uri}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, email, password }),
+        });
+       
+        if (res.status !== 201) {
+            throw new Error('Registration failed');
+        }
+
+        return res.json();
+    },
     self: async (token) => {
         if (!token) {
             return null;

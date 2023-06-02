@@ -2,10 +2,11 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { useRouter } from "next/router";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+
+import api from "../api";
 
 import BackArrow from "../public/back-arrow.png";
 import bg from "../public/background.webp";
@@ -16,7 +17,7 @@ const Registration = () => {
     const [password, setPassword] = useState("");
     const [passwordCheck, setPasswordCheck] = useState(""); 
     const [confirmation, setConfirmation] = useState(false); 
-
+    const [error, setError] = useState("");
 
     const validationSchema = Yup.object().shape({
         email: Yup.string()
@@ -37,12 +38,20 @@ const Registration = () => {
     const { register, handleSubmit, formState } = useForm(formOptions);
     const { errors } = formState;
 
-    function onSubmit() {
+    const onSubmit = async () => {
         setConfirmation(true);
+
+        await api
+            .registration(username, email, password)
+            .catch((err) => {
+                setError(err.message)
+            }); 
+
     }
 
     if(confirmation) {
         window.scrollTo(0, 0);
+
         return(
             <>
                 <Head>
@@ -65,8 +74,6 @@ const Registration = () => {
         )
 
     }
-
-
 
     return (
         <>
@@ -101,7 +108,7 @@ const Registration = () => {
                                     onChange={(e) => setEmail(e.target.value)}
                                     className={`form-control ${errors.email ? 'is-invalid' : ''} inline-block w-full rounded-full text-l text-shingle-fawn bg-[#000000]/[.30] py-3 px-10 focus:outline-shingle-fawn`}
                                 />
-                                <div className="invalid-feedback text-shingle-fawn-dark">{errors.email?.message}</div>
+                                <div className="invalid-feedback text-red-500">{errors.email?.message}</div>
                             </div>
                             <div className="w-full relative">
                                 <label className="text-base text-shingle-fawn uppercase">Username</label>
@@ -113,7 +120,7 @@ const Registration = () => {
                                     onChange={(e) => setUsername(e.target.value)}
                                     className={`form-control ${errors.username ? 'is-invalid' : ''}inline-block w-full rounded-full text-l text-shingle-fawn bg-[#000000]/[.30] py-3 px-10 focus:outline-shingle-fawn`}
                                 />
-                                <div className="invalid-feedback text-shingle-fawn-dark">{errors.username?.message}</div>
+                                <div className="invalid-feedback text-red-500">{errors.username?.message}</div>
                             </div>
                             <div className="w-full relative">
                                 <label className="text-base text-shingle-fawn uppercase">Password</label>
@@ -125,7 +132,7 @@ const Registration = () => {
                                     onChange={(e) => setPassword(e.target.value)}
                                     className={`form-control ${errors.password ? 'is-invalid' : ''} inline-block w-full rounded-full text-l text-shingle-fawn bg-[#000000]/[.30] py-3 px-10 focus:outline-shingle-fawn`}
                                 />
-                                <div className="invalid-feedback text-shingle-fawn-dark">{errors.password?.message}</div>
+                                <div className="invalid-feedback text-red-500">{errors.password?.message}</div>
                             </div>
                             <div className="w-full relative">
                                 <label className="text-base text-shingle-fawn uppercase">Confirm password</label>
@@ -137,9 +144,11 @@ const Registration = () => {
                                     onChange={(e) => setPasswordCheck(e.target.value)}
                                     className={`form-control ${errors.confirmPassword ? 'is-invalid' : ''} inline-block w-full rounded-full text-l text-shingle-fawn bg-[#000000]/[.30] py-3 px-10 focus:outline-shingle-fawn`}
                                 />
-                                <div className="invalid-feedback text-shingle-fawn-dark">{errors.confirmPassword?.message}</div>
+                                <div className="invalid-feedback text-red-500">{errors.confirmPassword?.message}</div>
                             </div>
-                            <button  className="self-center bg-light-brown/[.67] rounded-full px-7 py-4 uppercase text-base sm:text-xl hover:bg-light-brown hover:ring hover:ring-shingle-fawn hover:ring-offset-2 text-shingle-fawn-dark">Sign up</button> 
+                            <button className="self-center bg-light-brown/[.67] rounded-full px-7 py-4 uppercase text-base sm:text-xl hover:bg-light-brown hover:ring hover:ring-shingle-fawn hover:ring-offset-2 text-shingle-fawn-dark">
+                                Sign up
+                            </button> 
                         </div>
 
                     </form>
@@ -147,7 +156,9 @@ const Registration = () => {
                     <div>
                         <p className="text-base sm:text-lg text-shingle-fawn mb-2">Already have an account?</p>
                         <Link href="/login" key="login" passHref>
-                            <button className="bg-light-brown/[.67] rounded-full px-7 py-4 uppercase text-base sm:text-xl hover:bg-light-brown hover:ring hover:ring-shingle-fawn hover:ring-offset-2 text-shingle-fawn-dark">Log in now</button>     
+                            <button className="bg-light-brown/[.67] rounded-full px-7 py-4 uppercase text-base sm:text-xl hover:bg-light-brown hover:ring hover:ring-shingle-fawn hover:ring-offset-2 text-shingle-fawn-dark">
+                                Log in now
+                            </button>     
                         </Link>
                     </div>
                 </section>
