@@ -17,7 +17,7 @@ const Registration = () => {
     const [password, setPassword] = useState("");
     const [passwordCheck, setPasswordCheck] = useState(""); 
     const [confirmation, setConfirmation] = useState(false); 
-    const [error, setError] = useState("");
+    const [msg, setMsg] = useState({ message: '', isError: false });
 
     const validationSchema = Yup.object().shape({
         email: Yup.string()
@@ -39,14 +39,22 @@ const Registration = () => {
     const { errors } = formState;
 
     const onSubmit = async () => {
-        setConfirmation(true);
+        const res = await api
+        .registration(username, email, password)
+        .catch((err) => {
+            setMsg({ message: err.message, isError: true })
+        });
 
-        await api
-            .registration(username, email, password)
-            .catch((err) => {
-                setError(err.message)
-            }); 
-
+        if(res) {
+            if(res.length === 1) {
+                setConfirmation(true);
+                setMsg({ message: 'Username updated!' });
+            } else {
+                setMsg({ message: 'The username or email already exist!', isError: true });
+            }
+        }
+        setTimeout(() => {setMsg('')}, 3000);
+        
     }
 
     if(confirmation) {
@@ -146,9 +154,12 @@ const Registration = () => {
                                 />
                                 <div className="invalid-feedback text-red-500">{errors.confirmPassword?.message}</div>
                             </div>
-                            <button className="self-center bg-light-brown/[.67] rounded-full px-7 py-4 uppercase text-base sm:text-xl hover:bg-light-brown hover:ring hover:ring-shingle-fawn hover:ring-offset-2 text-shingle-fawn-dark">
+                            <button className={` ${msg.message ? 'hidden' : 'visible'} self-center bg-light-brown/[.67] rounded-full px-7 py-4 uppercase text-base sm:text-xl hover:bg-light-brown hover:ring hover:ring-shingle-fawn hover:ring-offset-2 text-shingle-fawn-dark` }>
                                 Sign up
                             </button> 
+                            <div className={` ${msg.message ? 'visible' : 'hidden'} ${msg.isError ? 'text-red-500' : 'text-swamp-green'} text-center text-base sm:text-xl`}>
+                                    {msg.message}
+                            </div>
                         </div>
 
                     </form>

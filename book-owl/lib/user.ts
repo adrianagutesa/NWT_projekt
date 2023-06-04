@@ -28,7 +28,13 @@ export async function listID(id: number) {
 export async function add(username: string, email: string, password: string) {
   return await sql`
     INSERT INTO users (username, email, password)
-    VALUES (${username}, ${email}, crypt(${password}, gen_salt('md5')))
+    SELECT ${username}, ${email}, crypt(${password}, gen_salt('md5'))
+    WHERE NOT EXISTS (
+      SELECT 1
+      FROM users
+      WHERE username = ${username} OR email = ${email}
+    )
+    RETURNING *
   `;
 }
 
