@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import * as users from '../../lib/userByID';
 
 const JWT_SECRET = 'secret';
 
@@ -18,13 +17,13 @@ const handler = async(req, res) => {
         const resp = await fetch(`http://localhost:3000/api/${uri}`);
         const currentuser = await resp.json();
 
-        const {password, ...user} = currentuser;
+        const {password, ...user} = currentuser[0];
             
         if (!user) {
             res.status(403).json({ message: 'Your account might be deleted' });
         }
 
-        res.status(200).json({ user });
+        res.status(200).json({ password, user });
     } catch {
         res.status(403).json({ message: 'Invalid token' });
     }
