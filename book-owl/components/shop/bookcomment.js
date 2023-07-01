@@ -2,7 +2,7 @@ import useAuth from '../../hooks/useAuth';
 import api from "../../api";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Comment from "../blog/Comment";
+import Comment from '../comment/Comment';
 
 
 const BookComment = ({...item}) => {
@@ -12,9 +12,12 @@ const [msg, setMsg] = useState({ message: '', isError: false });
 const [name, setName] = useState("");
 const [commentText, setCommentText] = useState("");
 const [comments, setComments] = useState([]);
+console.log(currentUser)
+console.log(comments.length)
+console.log(item.slug)
 
-
-const getComments = async () => {
+  const getComments = async () => {
+    
     const resp = await fetch(
       `http://localhost:3000/api/comments/${item.slug}`
     );

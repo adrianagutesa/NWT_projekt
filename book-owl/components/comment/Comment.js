@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { AiOutlineUser } from "react-icons/ai";
-import api from "../api";
-import useAuth from '../../hooks/useAuth';
+import api from "../../api";
+import useAuth from "../../hooks/useAuth";
 
 const Comment = ({ comment, slug, commentChange }) => {
+    console.log("HELLO PLEASE")
     const { token } = useAuth();
     const [currentUser, setCurrentUser] = useState(null);
     const [msg, setMsg] = useState({ message: '', isError: false });
@@ -23,6 +24,7 @@ const Comment = ({ comment, slug, commentChange }) => {
   }, [token])
   console.log(slug)
   console.log(currentUser)
+  console.log('hello')
   const [isEditing, setIsEditiong] = useState(false);
   const [newComment, setNewComment] = useState(comment.text);
 
@@ -51,7 +53,7 @@ const Comment = ({ comment, slug, commentChange }) => {
       <div>
         <AiOutlineUser className="w-10 h-10 mt-1.5" />
       </div>
-      <div class="flex flex-col px-5">
+      <div className="flex flex-col px-5">
         <p className="font-light text-l">{comment.useremail.split('@')[0]} on: {comment.date.split('T')[0]}</p>
         <p className="font-medium text-xl"></p>
         <p className="font-middle text-xl">{comment.text}</p>

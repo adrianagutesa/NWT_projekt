@@ -6,13 +6,13 @@ import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 import { BsPen } from 'react-icons/bs';
 import { FaArrowUp } from "react-icons/fa";
 import { useState, useEffect, useContext } from "react";
-import useAuth from '../../hooks/useAuth';
+
 
 import HeaderFooterLayout from "../../layouts/HeaderFooterLayout";
 import { getBlogs } from "../api/ContentfulAPI";
 import BackArrow from "../../public/back-arrow.png";
 import PostThird from "../../components/blog/postThird";
-import Comment from "../../components/blog/Comment";
+//import Comment from "../../components/blog/Comment";
 import BookComment from "../../components/shop/bookcomment";
 
 const Post = (props) => {
@@ -20,10 +20,7 @@ const Post = (props) => {
     const router = useRouter();
     const postSlug = router.query.slug;
 
-    
-    const { token } = useAuth();
-    const [currentUser, setCurrentUser] = useState(null);
-    const [msg, setMsg] = useState({ message: '', isError: false });
+  
     const [name, setName] = useState("");
     const [commentText, setCommentText] = useState("");
     const [comments, setComments] = useState([]);

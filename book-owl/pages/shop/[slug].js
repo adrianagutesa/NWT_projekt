@@ -127,7 +127,7 @@ const BookDetails = (props) => {
 
                                 </div>
                                 <div className="flex flex-col lg:mx-24 sm:mx-8 md:mx-10 mb-8">                              
-                                    <BookComment key={item.isbn} {...item} />
+                                    <BookComment key={item.slug} {...item} />
                                     
                                 </div>
                             </div>
