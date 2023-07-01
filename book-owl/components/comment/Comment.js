@@ -55,52 +55,54 @@ const Comment = ({ comment, slug, commentChange }) => {
       </div>
       <div className="flex flex-col px-5">
         <p className="font-light text-l">{comment.useremail.split('@')[0]} on: {comment.date.split('T')[0]}</p>
-        <p className="font-medium text-xl"></p>
         <p className="font-middle text-xl">{comment.text}</p>
-        <div className="flex sm:flex-wrap">
-        {currentUser && currentUser.email == comment.useremail && (
-          <button
-              className="flex justify-center bg-bckgrnd-light hover:bg-bckgrnd text-black font-medium sm:mt-8 lg:mb-4 lg:mt-4 py-2 px-10 sm:px-7 border-2 border-[#252526] rounded-full shadow-xl"
-              onClick={(e) => {
-                  handleDeleteComment(slug);
-              }}
-          >
-              Delete
-          </button>
-        )}
-        {currentUser && currentUser.email == comment.useremail && (
-          <button
-              className="flex justify-center bg-bckgrnd-light hover:bg-bckgrnd text-black font-medium sm:mt-8 lg:mb-4 lg:mt-4 py-2 px-10 sm:px-7 border-2 border-[#252526] rounded-full shadow-xl lg:ml-4 sm:ml-2 md:ml-2"
-              onClick={(e) => {
-                  setIsEditiong(true);
-              }}
-          >
-              Edit
-          </button>
+        
+        {isEditing && (
+          <input
+            type="text"
+            name="comment"
+            className="border-2 w-full mt-2 px-2 py-1"
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+          />
         )}
 
-          {isEditing && (
+        <div className="flex flex-wrap mt-4">
+          {currentUser && currentUser.email == comment.useremail && (
             <>
-              <input
-                type="text"
-                name="comment"
-                className="border-2 lg:px-14 lg:ml-4 sm:my-5 sm:h-12 sm:w-64"
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-              />
               <button
-                className="flex justify-center bg-[#252526] hover:bg-bckgrnd hover:text-black text-white font-medium lg:mb-4 lg:mt-4 py-2 px-12 border-2 border-[#252526] rounded-full shadow-xl lg:ml-4"
-                type="submit"
-                onClick={handleEditComment}
+                className="flex justify-center bg-bckgrnd-light hover:bg-bckgrnd text-black font-medium mb-2 py-2 px-10 border-2 border-[#252526] rounded-full shadow-xl"
+                onClick={(e) => {
+                    handleDeleteComment(slug);
+                }}
               >
-                Update
+                Delete
+              </button>
+              <button
+                className="flex justify-center bg-bckgrnd-light hover:bg-bckgrnd text-black font-medium mb-2 ml-2 py-2 px-10 border-2 border-[#252526] rounded-full shadow-xl"
+                onClick={(e) => {
+                    setIsEditiong(true);
+                }}
+              >
+                Edit
               </button>
             </>
+          )}
+
+          {isEditing && (
+            <button
+              className="flex justify-center bg-[#252526] hover:bg-bckgrnd hover:text-black text-white font-medium mb-2 mt-2 py-2 px-12 border-2 border-[#252526] rounded-full shadow-xl w-full"
+              type="submit"
+              onClick={handleEditComment}
+            >
+              Update
+            </button>
           )}
         </div>
       </div>
     </div>
   );
 };
+
 
 export default Comment;
