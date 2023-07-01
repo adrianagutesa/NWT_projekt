@@ -21,7 +21,8 @@ const Comment = ({ comment, slug, commentChange }) => {
               setMsg({ message: err.message, isError: true })
           });
   }, [token])
-
+  console.log(slug)
+  console.log(currentUser)
   const [isEditing, setIsEditiong] = useState(false);
   const [newComment, setNewComment] = useState(comment.text);
 

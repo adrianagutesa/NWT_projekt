@@ -64,7 +64,7 @@ const getComments = async () => {
 
 
 return (
-    <div className=" bg-swamp-green/[.3] flex flex-col lg:mx-24 sm:mx-8 md:mx-10 mb-8 p-6 md:p-10 lg:p-[60px] rounded-2xl">
+    <div className="flex flex-col lg:mx-24 sm:mx-8 md:mx-10 mb-8 p-6 md:p-10 lg:p-[60px] rounded-2xl">
     <p className=" my-6 font-semibold text-2xl">COMMENTS</p>
     {comments.length > 0 && (
       <div className='bg-gradient-to-r from-[#799633] to-swamp-green  p-6 md:p-10 lg:p-[60px] rounded-2xl'>
@@ -82,10 +82,10 @@ return (
     )}
     {token && (
       <>
-        <div className="bg-swamp-green/[.3] flex justify-start pt-10 pb-2">
+        <div className=" flex justify-start pt-10 pb-2">
           <p className="font-semibold text-2xl">Tell us what you think, write a comment:</p>
         </div>
-        <div className="bg-swamp-green/[.3] flex justify-start py-2">
+        <div className=" flex justify-start py-2">
           <form>
             <label htmlFor="Insert comment"></label>
             <input
