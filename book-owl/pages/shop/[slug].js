@@ -2,13 +2,15 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 
 import { getBooks } from "../api/ContentfulAPI";
 import { addToCart } from "../../redux/cart.slice";
 import HeaderFooterLayout from "../../layouts/HeaderFooterLayout";
 import Cart4 from "../../public/shopping-cart4.png";
 import Package from "../../public/package.png";
+import BookComment from "../../components/shop/bookcomment";
 
 const BookDetails = (props) => {
     const { fields } = props;
@@ -17,6 +19,7 @@ const BookDetails = (props) => {
     const dispatch = useDispatch();
     const [clicked, setClicked] = useState(false);
     const [quantity, setQuantity]=useState(1);
+
 
     const updateQuantity = (value) => {
         if(quantity === 1 && value === -1) {
@@ -121,7 +124,7 @@ const BookDetails = (props) => {
                                         <p>{item.language}</p>                  
                                         <p>{item.numberOfPages}</p> 
                                     </div>                                    
-                                    
+                                    <BookComment key={item.isbn} {...item} />
                                 </div>
                         </div>
                     )           
