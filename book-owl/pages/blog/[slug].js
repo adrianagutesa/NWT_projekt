@@ -19,9 +19,6 @@ const Post = (props) => {
     const {fields} = props;
     const router = useRouter();
     const postSlug = router.query.slug;
-    console.log(postSlug)
-    //const postId = router.query.id;
-    //const postSlugId = router.query.id;
 
     
     const { token } = useAuth();
@@ -30,25 +27,6 @@ const Post = (props) => {
     const [name, setName] = useState("");
     const [commentText, setCommentText] = useState("");
     const [comments, setComments] = useState([]);
-
-   // const uri = postSlug;
-
-    /*const res = await fetch(`http://localhost:3000/api/${uri}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: currentUser.id, username: newUsername }),
-    });*/
-   /* useEffect(() => {
-        // Fetch comments when the component mounts.
-        const fetchComments = async () => {
-          const response = await fetch(`/api/comments?postId=${postSlug}`);
-          console.log(response); // Add this line to inspect the response
-          const commentsData = await response.json();
-          setComments(commentsData);
-        }
-      
-        fetchComments();
-      }, []);*/
 
 
 
