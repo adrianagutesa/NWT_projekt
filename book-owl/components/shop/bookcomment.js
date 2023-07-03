@@ -12,9 +12,7 @@ const [msg, setMsg] = useState({ message: '', isError: false });
 const [name, setName] = useState("");
 const [commentText, setCommentText] = useState("");
 const [comments, setComments] = useState([]);
-console.log(currentUser)
-console.log(comments.length)
-console.log(item.slug)
+
 
   const getComments = async () => {
     
@@ -101,7 +99,7 @@ return (
 
 
             <button
-              className="flex justify-center bg-gradient-to-r from-[#799633] to-swamp-green hover:bg-[#3e3e42] hover:border-[#3e3e42] text-gray-100 font-medium mt-8 py-2 px-12 border-2 border-[#252526] rounded-full shadow-xl"
+              className="flex justify-center bg-gradient-to-r from-[#799633] to-swamp-green hover:bg-[#799633] hover:border-[#3e3e42] text-gray-100 font-medium mt-8 py-2 px-12 border-2 border-[#252526] rounded-full shadow-xl"
               type="submit"
               onClick={submitComment}
             >

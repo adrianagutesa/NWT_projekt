@@ -12,7 +12,6 @@ import HeaderFooterLayout from "../../layouts/HeaderFooterLayout";
 import { getBlogs } from "../api/ContentfulAPI";
 import BackArrow from "../../public/back-arrow.png";
 import PostThird from "../../components/blog/postThird";
-//import Comment from "../../components/blog/Comment";
 import BookComment from "../../components/shop/bookcomment";
 
 const Post = (props) => {

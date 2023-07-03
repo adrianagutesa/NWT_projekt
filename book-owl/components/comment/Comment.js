@@ -4,7 +4,6 @@ import api from "../../api";
 import useAuth from "../../hooks/useAuth";
 
 const Comment = ({ comment, slug, commentChange }) => {
-    console.log("HELLO PLEASE")
     const { token } = useAuth();
     const [currentUser, setCurrentUser] = useState(null);
     const [msg, setMsg] = useState({ message: '', isError: false });
@@ -22,9 +21,7 @@ const Comment = ({ comment, slug, commentChange }) => {
               setMsg({ message: err.message, isError: true })
           });
   }, [token])
-  console.log(slug)
-  console.log(currentUser)
-  console.log('hello')
+
   const [isEditing, setIsEditiong] = useState(false);
   const [newComment, setNewComment] = useState(comment.text);
 
@@ -55,13 +52,13 @@ const Comment = ({ comment, slug, commentChange }) => {
       </div>
       <div className="flex flex-col px-5">
         <p className="font-light text-l">{comment.useremail.split('@')[0]} on: {comment.date.split('T')[0]}</p>
-        <p className="font-middle text-xl">{comment.text}</p>
-        
-        {isEditing && (
+        {!isEditing ? (
+          <p className="font-middle text-xl">{comment.text}</p>
+        ) : (
           <input
             type="text"
             name="comment"
-            className="border-2 w-full mt-2 px-2 py-1"
+            className="border-2 w-full mt-2 px-2 py-1 "
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
           />
@@ -71,7 +68,7 @@ const Comment = ({ comment, slug, commentChange }) => {
           {currentUser && currentUser.email == comment.useremail && (
             <>
               <button
-                className="flex justify-center bg-bckgrnd-light hover:bg-bckgrnd text-black font-medium mb-2 py-2 px-10 border-2 border-[#252526] rounded-full shadow-xl"
+                className="flex justify-center bg-bckgrnd-light hover:bg-[#799633] text-black font-medium mb-2 py-2 px-10 border-2 border-[#252526] rounded-full shadow-xl"
                 onClick={(e) => {
                     handleDeleteComment(slug);
                 }}
@@ -79,7 +76,7 @@ const Comment = ({ comment, slug, commentChange }) => {
                 Delete
               </button>
               <button
-                className="flex justify-center bg-bckgrnd-light hover:bg-bckgrnd text-black font-medium mb-2 ml-2 py-2 px-10 border-2 border-[#252526] rounded-full shadow-xl"
+                className="flex justify-center bg-bckgrnd-light hover:bg-[#799633] text-black font-medium mb-2 ml-2 py-2 px-10 border-2 border-[#252526] rounded-full shadow-xl"
                 onClick={(e) => {
                     setIsEditiong(true);
                 }}
@@ -91,7 +88,7 @@ const Comment = ({ comment, slug, commentChange }) => {
 
           {isEditing && (
             <button
-              className="flex justify-center bg-[#252526] hover:bg-bckgrnd hover:text-black text-white font-medium mb-2 mt-2 py-2 px-12 border-2 border-[#252526] rounded-full shadow-xl w-full"
+              className="flex justify-center bg-[#252526] hover:bg-[#799633] hover:text-black text-white font-medium mb-2 mt-2 py-2 px-12 border-2 border-[#252526] rounded-full shadow-xl w-full"
               type="submit"
               onClick={handleEditComment}
             >
@@ -103,6 +100,8 @@ const Comment = ({ comment, slug, commentChange }) => {
     </div>
   );
 };
+
+
 
 
 export default Comment;
